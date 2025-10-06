@@ -52,7 +52,8 @@ Random Forest (RF) is an ensemble learning algorithm that builds multiple decisi
 The preprocessing workflow involved:  
 - **Missing value imputation** using median/mode techniques.  
 - **Outlier treatment** and **log transformations** to normalise skewed variables such as `totalEstimatedCost`, `totalLandCost`, and `totalCarpetArea_form3A`.  
-- **Multicollinearity reduction** through **Pearson Correlation Coefficient (PCC)** and **Variance Inflation Factor (VIF)** tests, removing redundant variables.  
+- **Multicollinearity reduction** through **Pearson Correlation Coefficient (PCC)** and **Variance Inflation Factor (VIF)** tests, removing redundant variables.
+
 - **Feature engineering:** creation of `projectDurationMonths` and **cost-based binning** of high-cardinality features like `promoterName`, `architect_name`, and `eng_name`.  
 - **Label encoding** of categorical variables for Random Forest compatibility.  
 
@@ -66,9 +67,9 @@ Model performance was assessed using standard regression metrics:
 
 | Metric | Formula | Interpretation |
 |:-------|:---------|:---------------|
-| **R² Score** - Variance explained by the model |
-| **RMSE** - Penalises large prediction errors |
-| **MAE** - Average deviation of predictions |
+| **R² Score** | 1 - (Σ(yi - ŷi)² / Σ(yi - ȳ)²) | Variance explained by the model |
+| **RMSE** | √(Σ(ŷi - yi)² / n) | Penalises large prediction errors |
+| **MAE** | Σ|ŷi - yi| / n | Average deviation of predictions |
 
 The Final RF Model achieved:  
 - **R² = 0.9518**, **RMSE = 0.19**, **MAE = 0.13** (log scale)  
@@ -79,3 +80,58 @@ The Final RF Model achieved:
 ## 6️⃣ Model Development and Results  
 
 Hyperparameter tuning used **Out-of-Bag (OOB)** error analysis and **5-fold cross-validation** to identify optimal parameters:  
+
+- n_estimators = 220
+- max_features = 0.4
+- max_depth = 15
+
+Baseline comparisons showed Random Forest outperforming all models:  
+
+| Model | R² | RMSE (log) | MAE (log) |
+|:------|:--:|:-----------:|:----------:|
+| Random Forest | **0.9518** | **0.19** | **0.13** |
+| Linear Regression | 0.8596 | 0.33 | 0.24 |
+| Polynomial Regression | 0.9227 | 0.24 | 0.17 |
+| Support Vector Regression | 0.9357 | 0.22 | 0.15 |
+
+![Model Performance Graph](/images/model_performance.png)
+
+---
+
+## 7️⃣ Model Validation and Hyperparameter Tuning  
+
+To ensure generalisability, **5-fold cross-validation** confirmed high stability with mean R² = 0.9503 (σ = 0.005).  
+The **Out-of-Bag (OOB)** error convergence validated the ideal number of trees (n_estimators = 220).  
+
+![OOB Convergence](/images/oob_convergence.png)  
+![Cross Validation Plot](/images/cv_r2_plot.png)  
+
+Together, these tests confirmed low overfitting risk and strong model reliability across varying data partitions.
+
+---
+
+## 8️⃣ Final RF Model Feature Analysis  
+
+Feature interpretation combined three complementary methods:  
+
+1. **Feature Importance** (reduction in impurity)  
+2. **Sensitivity Analysis** (impact magnitude on predictions)  
+3. **SHAP Values** (game-theoretic explanation of individual predictions)  
+
+![Feature Importance Graph](/images/feature_importance.png)  
+![SHAP Summary Plot](/images/shap_summary.png)  
+
+The top-ranked features were:
+1. **Promoter Cost Group**  
+2. **Carpet Area (log)**  
+3. **Engineer Cost Group**  
+4. **Architect Cost Group**  
+5. **Land Cost (log)**  
+
+These variables had the strongest influence on project cost predictions.
+
+---
+
+## 9️⃣ Final RF Model Cost Drivers and Industry Validation  
+
+The consolidated **Final Feature Score** was derived as:  
