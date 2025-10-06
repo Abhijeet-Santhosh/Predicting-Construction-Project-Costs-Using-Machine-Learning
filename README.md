@@ -31,6 +31,8 @@ To develop a machine learning-based regional cost estimation model that predicts
 
 The research follows the **CRISP-DM framework**, integrating data collection, preprocessing, model development, validation, and interpretation. The Random Forest model was chosen for its robustness in handling nonlinearity and multicollinearity in high-dimensional construction datasets.
 
+![Methodological Framework](https://github.com/Abhijeet-Santhosh/Predicting-Construction-Project-Costs-Using-Machine-Learning/blob/main/RF%20modelling%20methodology.png)
+
 ### 🔹 Data Source  
 Data was sourced from **Kaggle (2025)** containing 14,507 projects registered under the **Gujarat Real Estate Regulatory Authority (RERA)** between 2017–2023. The dataset includes 44 attributes on promoter details, project timelines, costs, and size metrics, providing an extensive foundation for modelling.
 
@@ -41,8 +43,7 @@ Model development and visualisation were executed in **Jupyter Notebook** for fu
 ### 🔹 Machine Learning Algorithm: Random Forest  
 Random Forest (RF) is an ensemble learning algorithm that builds multiple decision trees and averages their outputs to enhance predictive accuracy and stability. It handles nonlinear relationships effectively and reduces overfitting through bootstrapping and feature randomisation.  
 
-![Random Forest Algorithm](/images/random_forest_algorithm.png)  
-![Methodological Framework](/images/methodology_framework.png)  
+![Random Forest Algorithm](https://github.com/Abhijeet-Santhosh/Predicting-Construction-Project-Costs-Using-Machine-Learning/blob/main/RF%20framework.png) 
 
 ---
 
