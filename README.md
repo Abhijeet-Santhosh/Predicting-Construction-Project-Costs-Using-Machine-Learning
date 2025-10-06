@@ -87,14 +87,7 @@ Hyperparameter tuning used **Out-of-Bag (OOB)** error analysis and **5-fold cros
 
 Baseline comparisons showed Random Forest outperforming all models:  
 
-| Model | R² | RMSE (log) | MAE (log) |
-|:------|:--:|:-----------:|:----------:|
-| Random Forest | **0.9518** | **0.19** | **0.13** |
-| Linear Regression | 0.8596 | 0.33 | 0.24 |
-| Polynomial Regression | 0.9227 | 0.24 | 0.17 |
-| Support Vector Regression | 0.9357 | 0.22 | 0.15 |
-
-![Model Performance Graph](/images/model_performance.png)
+![Model Performance Graph](https://github.com/Abhijeet-Santhosh/Predicting-Construction-Project-Costs-Using-Machine-Learning/blob/main/Model%20Performance%20Comparison.png)
 
 ---
 
@@ -102,9 +95,6 @@ Baseline comparisons showed Random Forest outperforming all models:
 
 To ensure generalisability, **5-fold cross-validation** confirmed high stability with mean R² = 0.9503 (σ = 0.005).  
 The **Out-of-Bag (OOB)** error convergence validated the ideal number of trees (n_estimators = 220).  
-
-![OOB Convergence](/images/oob_convergence.png)  
-![Cross Validation Plot](/images/cv_r2_plot.png)  
 
 Together, these tests confirmed low overfitting risk and strong model reliability across varying data partitions.
 
@@ -114,12 +104,12 @@ Together, these tests confirmed low overfitting risk and strong model reliabilit
 
 Feature interpretation combined three complementary methods:  
 
-1. **Feature Importance** (reduction in impurity)  
-2. **Sensitivity Analysis** (impact magnitude on predictions)  
+1. **Feature Importance** (reduction in impurity)
+![Feature Importance Graph](https://github.com/Abhijeet-Santhosh/Predicting-Construction-Project-Costs-Using-Machine-Learning/blob/main/Feature%20Importance%20Graph.png)  
+2. **Sensitivity Analysis** (impact magnitude on predictions)
+![Sensitivity Analysis](https://github.com/Abhijeet-Santhosh/Predicting-Construction-Project-Costs-Using-Machine-Learning/blob/main/Sensitivity%20Analysis.png)
 3. **SHAP Values** (game-theoretic explanation of individual predictions)  
-
-![Feature Importance Graph](/images/feature_importance.png)  
-![SHAP Summary Plot](/images/shap_summary.png)  
+![SHAP Summary Plot](https://github.com/Abhijeet-Santhosh/Predicting-Construction-Project-Costs-Using-Machine-Learning/blob/main/SHAP%20analysis.png)
 
 The top-ranked features were:
 1. **Promoter Cost Group**  
@@ -135,3 +125,31 @@ These variables had the strongest influence on project cost predictions.
 ## 9️⃣ Final RF Model Cost Drivers and Industry Validation  
 
 The consolidated **Final Feature Score** was derived as:  
+Final Feature Score_i = 0.39·FI_i + 0.08·Sensitivity_i + 0.53·SHAP_i
+
+| Rank | Feature | Final Score | Description |
+|:----:|:---------|:-------------|:-------------|
+| 1 | Promoter Cost Group | 0.66 | Developer scale & reputation strongly impact total cost. |
+| 2 | Carpet Area (log) | 0.27 | Larger project sizes lead to exponential cost increases. |
+| 3 | Engineer Cost Group | 0.18 | Structural and MEP complexity influence cost variance. |
+| 4 | Architect Cost Group | 0.17 | Design quality and expertise directly affect total cost. |
+| 5 | Land Cost (log) | 0.14 | Location-based acquisition costs are major budget components. |
+
+Industry comparison validated these drivers as consistent with studies (Gleeds, 2022; Parmar et al., 2016), reinforcing the model’s realism and predictive robustness.  
+
+---
+
+## 🔟 Ethical Consideration  
+
+This study exclusively used **public, anonymised secondary data** from the Gujarat RERA database, retrieved via Kaggle (2025). No primary or human-participant data were collected.  
+
+Ethical approval was granted through the **University of Exeter Business School’s ethical framework**, ensuring compliance with the principles of integrity, confidentiality, and transparency. Data was securely stored on **OneDrive (University account)**, version-controlled, and documented for reproducibility.  
+
+All analysis adhered to **UEBS ethical guidelines** and **British Psychological Society (BPS) principles**, ensuring responsible data use, accurate reporting, and avoidance of bias or misuse of findings.
+
+---
+
+### 📚 Citation  
+**Abhijeet Santhosh Kumar (2025).**  
+*Regional Cost Estimation Model of Real Estate Projects Using Random Forest: A Case Study of Gujarat RERA Data.*  
+University of Exeter, MSc Business Analytics Dissertation.
